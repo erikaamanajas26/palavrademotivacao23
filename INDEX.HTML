@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palavras de Motivação - Versículo do Dia</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+            padding-top: 80px; /* Adicionado para compensar o header fixo */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header e Navegação */
+        header {
+            background: rgba(0, 0, 0, 0.9); /* Aumentada a opacidade para melhor contraste */
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            padding: 15px 0;
+            top: 0;
+            left: 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Adicionada sombra para destaque */
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: rgb(133, 237, 22);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: #25D366;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            color: rgb(231, 227, 24);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        nav ul li a:hover {
+            color: #25D366;
+        }
+
+        nav ul li a.active {
+            color: #25D366;
+        }
+
+        nav ul li a.active:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #25D366;
+        }
+
+        .nav-icons {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-icon {
+            color: rgb(227, 151, 27);
+            font-size: 1.2rem;
+            margin-left: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-icon:hover {
+            color: #25D366;
+            transform: translateY(-2px);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #e74c3c;
+            color: rgb(217, 235, 84);
+            font-size: 0.7rem;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Daily Verse */
+        .daily-verse {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: rgb(221, 236, 10);
+            text-align: center;
+            padding: 25px 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .verse-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .verse-text {
+            font-size: 1.4rem;
+            font-style: italic;
+            margin-bottom: 10px;
+            line-height: 1.8;
+        }
+
+        .verse-reference {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .verse-date {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* Restante do CSS permanece igual */
+        /* Hero Section */
+        .hero {
+            height: 80vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80') no-repeat center center/cover fixed;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #ec9644;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: #25D366;
+            color: rgb(147, 5, 5);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:hover {
+            background-color: #128C7E;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 100px 0;
+            background-color: #ece810;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5rem;
+            color: #333;
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: #25D366;
+            margin: 15px auto;
+            border-radius: 2px;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background: rgb(238, 205, 159);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .testimonial-img {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .testimonial-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .testimonial-card:hover .testimonial-img img {
+            transform: scale(1.1);
+        }
+
+        .testimonial-content {
+            padding: 20px;
+        }
+
+        .testimonial-content h3 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .testimonial-content p {
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 100px 0;
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('https://images.unsplash.com/photo-1513326738677-b964603b136d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80') no-repeat center center/cover fixed;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .pricing-card {
+            background: rgb(223, 109, 153);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .pricing-header {
+            padding: 30px 20px;
+            text-align: center;
+            color: rgb(130, 7, 7);
+        }
+
+        .pricing-card.basic .pricing-header {
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+        }
+
+        .pricing-card.premium .pricing-header {
+            background: linear-gradient(135deg, #9b59b6, #34495e);
+        }
+
+        .pricing-card.vip .pricing-header {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        }
+
+        .pricing-card.community .pricing-header {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+        }
+
+        .pricing-title {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .pricing-price {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .pricing-price span {
+            font-size: 1rem;
+            font-weight: normal;
+        }
+
+        .pricing-description {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .pricing-features {
+            padding: 30px;
+        }
+
+        .pricing-features ul {
+            list-style: none;
+        }
+
+        .pricing-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid #2fb5f4;
+            display: flex;
+            align-items: center;
+        }
+
+        .pricing-features li i {
+            color: #25D366;
+            margin-right: 10px;
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-button {
+            text-align: center;
+            padding: 0 30px 30px;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #e44242;
+            color: #25D366;
+        }
+
+        .btn-outline:hover {
+            background: #c11010;
+            color: white;
+        }
+
+        .recommended {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #e74c3c;
+            color: rgb(21, 212, 219);
+            padding: 8px 20px;
+            font-size: 0.9rem;
+            border-radius: 20px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transform: rotate(5deg);
+        }
+
+        /* WhatsApp Float */
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 40px;
+            background-color: #25D366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-float:hover {
+            background-color: #128C7E;
+            transform: scale(1.1);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 50px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-section h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: #25D366;
+        }
+
+        .footer-section p {
+            margin-bottom: 10px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .footer-social a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background: #25D366;
+            color: white;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: #888c12;
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #444;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 140px; /* Ajuste para o header em mobile */
+            }
+            
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul {
+                margin-top: 15px;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            nav ul li {
+                margin: 0 10px;
+            }
+
+            .nav-icons {
+                margin-top: 15px;
+            }
+
+            .daily-verse {
+                padding: 15px;
+            }
+
+            .verse-text {
+                font-size: 1.1rem;
+            }
+
+            .verse-reference {
+                font-size: 1rem;
+            }
+
+            .hero {
+                height: auto;
+                padding: 80px 20px;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .whatsapp-float {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
+                font-size: 25px;
+            }
+            
+            .testimonial-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">
+                    <i class="fas fa-hands-praying"></i> Motivação
+                </a>
+                
+                <nav>
+                    <ul>
+                        <li><a href="#" class="active">Início</a></li>
+                        <li><a href="#testimonials">Testemunhos</a></li>
+                        <li><a href="#pricing">Planos</a></li>
+                        <li><a href="#contact">Contato</a></li>
+                    </ul>
+                </nav>
+                <!--<div class="nav-icons">
+                    <a href="#" class="nav-icon">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="nav-icon">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="nav-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">3</span>
+                    </a>
+                </div>-->
+                
+            </div>
+        </div>
+    </header>
+
+    <!-- Daily Verse Section -->
+    <section class="daily-verse">
+        <div class="verse-container">
+            <p class="verse-text" id="verse-text">"Porque eu bem sei os pensamentos que penso de vós, diz o Senhor; pensamentos de paz, e não de mal, para vos dar o fim que esperais."</p>
+            <p class="verse-reference" id="verse-reference">Jeremias 29:11</p>
+            <p class="verse-date" id="verse-date">Versículo do dia: Segunda-feira, 12 de Junho de 2023</p>
+        </div>
+    </section>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Palavras de Motivação</h1>
+        <p>Encontre força, esperança e inspiração através de palavras que elevam sua alma e fortalecem sua fé.</p>
+        <a href="#testimonials" class="btn">Ver Testemunhos</a>
+    </section>
+
+    <!-- O restante do código permanece igual -->
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <h2 class="section-title">Testemunhos Inspiradores</h2>
+            <div class="testimonial-grid">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-img">
+                        <img src="IMAGE/mulher em pe.jpeg" alt="Pessoa orando 1">
+                    </div>
+                    <div class="testimonial-content">
+                        <h3>Maria Silva</h3>
+                        <p>"Através da oração encontrei forças para superar momentos difíceis. A fé move montanhas e renova nossas esperanças a cada dia."</p>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-img">
+                        <img src="IMAGE/homem orando.jpeg" alt="Pessoa orando 2">
+                    </div>
+                    <div class="testimonial-content">
+                        <h3>João Santos</h3>
+                        <p>"A motivação que recebi através dessas palavras transformou minha vida. Hoje vejo cada desafio como uma oportunidade de crescimento."</p>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-img">
+                        <img src="IMAGE/mulher orando.jpg" alt="Pessoa orando 3">
+                    </div>
+                    <div class="testimonial-content">
+                        <h3>Ana Oliveira</h3>
+                        <p>"Nos momentos de fraqueza, foram as palavras de motivação e a conexão com a fé que me deram forças para seguir em frente com esperança."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2 class="section-title">Nossos Planos</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 50px; font-size: 1.2rem; color: #666;">
+                Oferecemos diferentes níveis de acesso a conteúdos motivacionais, grupos de apoio e sessões de oração para fortalecer sua fé e renovar suas energias.
+            </p>
+
+            <div class="pricing-grid">
+                <!-- Plano Básico -->
+                <div class="pricing-card basic">
+                    <div class="pricing-header">
+                        <h3 class="pricing-title">Plano Básico</h3>
+                        <div class="pricing-price">R$ 9,90<span>/mês</span></div>
+                        <p class="pricing-description">Ideal para começar sua jornada</p>
+                    </div>
+                    <div class="pricing-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Acesso a mensagens diárias</li>
+                            <li><i class="fas fa-check"></i> 3 vídeos motivacionais por semana</li>
+                            <li><i class="fas fa-check"></i> Grupo de WhatsApp comunitário</li>
+                            <li><i class="fas fa-check"></i> Desconto em eventos</li>
+                            <li><i class="fas fa-times"></i> Sessões de oração individual</li>
+                        </ul>
+                    </div>
+                    <div class="pricing-button">
+                        <a href="https://wa.me/5591984853637?text=Gostaria%20de%20receber%20mais%20palavras%20de%20motivação" class="btn btn-outline">Contratar Agora</a>
+                    </div>
+                </div>
+
+                <!-- Plano Premium -->
+                <div class="pricing-card premium">
+                    <div class="recommended">Recomendado</div>
+                    <div class="pricing-header">
+                        <h3 class="pricing-title">Plano Premium</h3>
+                        <div class="pricing-price">R$ 19,90<span>/mês</span></div>
+                        <p class="pricing-description">Para quem busca transformação</p>
+                    </div>
+                    <div class="pricing-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Todos os benefícios do plano básico</li>
+                            <li><i class="fas fa-check"></i> Acesso a conteúdo exclusivo</li>
+                            <li><i class="fas fa-check"></i> 2 sessões de oração em grupo por semana</li>
+                            <li><i class="fas fa-check"></i> E-book mensal de meditações</li>
+                            <li><i class="fas fa-check"></i> Suporte por WhatsApp prioritário</li>
+                        </ul>
+                    </div>
+                    <div class="pricing-button">
+                        <a href="https://wa.me/5591984853637?text=Gostaria%20de%20receber%20mais%20palavras%20de%20motivação" class="btn">Contratar Agora</a>
+                    </div>
+                </div>
+
+                <!-- Plano VIP -->
+                <div class="pricing-card vip">
+                    <div class="pricing-header">
+                        <h3 class="pricing-title">Plano VIP</h3>
+                        <div class="pricing-price">R$ 39,90<span>/mês</span></div>
+                        <p class="pricing-description">Experiência completa de fé</p>
+                    </div>
+                    <div class="pricing-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Todos os benefícios do plano premium</li>
+                            <li><i class="fas fa-check"></i> Sessões individuais de oração</li>
+                            <li><i class="fas fa-check"></i> Aconselhamento espiritual personalizado</li>
+                            <li><i class="fas fa-check"></i> Encontros mensais exclusivos</li>
+                            <li><i class="fas fa-check"></i> Kit mensal com material exclusivo</li>
+                        </ul>
+                    </div>
+                    <div class="pricing-button">
+                        <a href="https://wa.me/5591984853637?text=Gostaria%20de%20receber%20mais%20palavras%20de%20motivação" class="btn btn-outline">Contratar Agora</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/5591984853637?text=Gostaria%20de%20receber%20mais%20palavras%20de%20motivação" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Sobre Nós</h3>
+                    <p>Oferecemos palavras de motivação e apoio espiritual para ajudar você a encontrar força e esperança em sua jornada diária.</p>
+                    <div class="footer-social">
+                        <a href="https://www.facebook.com/share/1FqT6DHQ7y/"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/erikaamanajas?igsh=dTI0ejRvdjJsdmdu"><i class="fab fa-instagram"></i></a>
+                        
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contato</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Travessa Vileta 2574</p>
+                    <p><i class="fas fa-phone"></i> (91)984853637 </p>
+                    <p><i class="fas fa-envelope"></i> contato@palavrasdemotivacao.com</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Links Rápidos</h3>
+                    <p><a href="#">Início</a></p>
+                    <p><a href="#testimonials">Testemunhos</a></p>
+                    <p><a href="#pricing">Planos</a></p>
+                    <p><a href="#contact">Contato</a></p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Palavras de Motivação - Todos os direitos reservados</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Script para o versículo do dia
+        const verses = [
+            {
+                text: '"Porque eu bem sei os pensamentos que penso de vós, diz o Senhor; pensamentos de paz, e não de mal, para vos dar o fim que esperais."',
+                reference: "Jeremias 29:11"
+            },
+            {
+                text: '"Posso todas as coisas naquele que me fortalece."',
+                reference: "Filipenses 4:13"
+            },
+            {
+                text: '"O Senhor é o meu pastor; nada me faltará."',
+                reference: "Salmos 23:1"
+            },
+            {
+                text: '"Entrega o teu caminho ao Senhor; confia nele, e ele tudo fará."',
+                reference: "Salmos 37:5"
+            },
+            {
+                text: '"Não temas, porque eu sou contigo; não te assombres, porque eu sou teu Deus; eu te fortaleço, e te ajudo, e te sustento com a destra da minha justiça."',
+                reference: "Isaías 41:10"
+            },
+            {
+                text: '"Mas os que esperam no Senhor renovarão as suas forças; subirão com asas como águias; correrão, и não se cansarão; andarão, e não se fatigarão."',
+                reference: "Isaías 40:31"
+            },
+            {
+                text: '"Confia no Senhor de todo o teu coração e não te estribes no teu próprio entendimento."',
+                reference: "Provérbios 3:5"
+            }
+        ];
+
+        // Função para obter um versículo baseado na data do dia
+        function getDailyVerse() {
+            const today = new Date();
+            const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
+            const verseIndex = dayOfYear % verses.length;
+            
+            return verses[verseIndex];
+        }
+
+        // Função para formatar a data
+        function formatDate(date) {
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            return date.toLocaleDateString('pt-BR', options);
+        }
+
+        // Atualizar o versículo do dia
+        function updateDailyVerse() {
+            const verse = getDailyVerse();
+            const today = new Date();
+            
+            document.getElementById('verse-text').textContent = verse.text;
+            document.getElementById('verse-reference').textContent = verse.reference;
+            document.getElementById('verse-date').textContent = `Versículo do dia: ${formatDate(today)}`;
+        }
+
+        // Inicializar o versículo do dia
+        updateDailyVerse();
+
+        // Script para destacar o item do menu ativo ao rolar a página
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('nav ul li a');
+            
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (pageYOffset >= (sectionTop - 100)) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === currentSection) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
